@@ -35,22 +35,22 @@ namespace musicPlay
 
             wplayer.URL = files[song];
             wplayer.controls.play();
+            song++;
 
 
 
-                    void WMP_PlayStateChange(int NewState)
+            void WMP_PlayStateChange(int NewState)
             {
-                MessageBox.Show("Playstate сейчас = " + wplayer.playState.ToString());
+                //MessageBox.Show("Playstate сейчас = " + wplayer.playState.ToString());
                 files = Directory.GetFiles(newPath);
 
-              
                 if (wplayer.playState == WMPPlayState.wmppsStopped)
                 {
                     if (song <= (files.Length - 1))
                     {
-                        MessageBox.Show("Я здесь");
+                        //MessageBox.Show("Я здесь");
                         wplayer.URL = files[song];
-                        MessageBox.Show(wplayer.URL);
+                        //MessageBox.Show(wplayer.URL);
                         wplayer.controls.play(); //Воспроизводим музыку
                         song++;
                     }
@@ -272,7 +272,7 @@ namespace musicPlay
                         
 
                         li += 2;
-                        
+                        //MessageBox.Show("Все еще здесь");
                     }
                     
                 }
