@@ -121,19 +121,22 @@
   <data name="p1_3103099_70c49ceb" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\p1_3103099_70c49ceb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PovtorIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PovtorIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="SmeshIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SmeshIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="svernIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\svernIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PovtorIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PovtorIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="volIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\volIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="svernIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\svernIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="NextIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NextIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="png-transparent-computer-icons-music-sound-k-song-miscellaneous-blue-text" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\png-transparent-computer-icons-music-sound-k-song-miscellaneous-blue-text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

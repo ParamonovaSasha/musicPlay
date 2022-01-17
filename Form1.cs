@@ -6,20 +6,70 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WMPLib;
 
 namespace musicPlay
 {
+    
     public partial class Form1 : Form
     {
+
+        string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
+
+        public delegate void panelHelp(Panel[] pan);
+
+        static void  musicPlay()
+        {
+            WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
+            
+            string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
+            int song = 0;
+
+            wplayer.PlayStateChange += new _WMPOCXEvents_PlayStateChangeEventHandler(WMP_PlayStateChange);
+
+          
+            string[] files = Directory.GetFiles(newPath);
+
+            wplayer.URL = files[song];
+            wplayer.controls.play();
+
+
+
+                    void WMP_PlayStateChange(int NewState)
+            {
+                MessageBox.Show("Playstate сейчас = " + wplayer.playState.ToString());
+                files = Directory.GetFiles(newPath);
+
+              
+                if (wplayer.playState == WMPPlayState.wmppsStopped)
+                {
+                    if (song <= (files.Length - 1))
+                    {
+                        MessageBox.Show("Я здесь");
+                        wplayer.URL = files[song];
+                        MessageBox.Show(wplayer.URL);
+                        wplayer.controls.play(); //Воспроизводим музыку
+                        song++;
+                    }
+                }
+
+            }
+
+        }
+
+
+
         List<string> names = new List<string>();
+        Thread mythread = new Thread(musicPlay);
+
 
         public Form1()
         {
             InitializeComponent();
 
-            //Подсказки при наведении на кнопки
             //Подсказки при наведении на кнопки
 
             ToolTip t1 = new ToolTip();
@@ -67,8 +117,7 @@ namespace musicPlay
 
 
                     e.Effect = DragDropEffects.Copy;
-                    //string[] strings = (string[])e.Data.GetData(DataFormats.FileDrop, true);
-
+                   
                 }
                 else
                 {
@@ -83,9 +132,10 @@ namespace musicPlay
 
             bool allowfilesdrop = false;
             string path;
-            string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
 
             panel1.Controls.Clear();
+
+
 
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
@@ -97,26 +147,35 @@ namespace musicPlay
                     if (allowfilesdrop)
                     {
 
+                        //Добавление имени файла
                         names.Add(new System.IO.FileInfo(f).Name);
                         path = Environment.CurrentDirectory;
 
                         string create = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
+
+                        string pathfile = new System.IO.FileInfo(f).FullName;
+
+                        FileInfo fileInf = new FileInfo(pathfile);
+
+                        
+
+                        //MessageBox.Show(names.Count.ToString());
 
                         if (names.Count == 1)
                         {
                             Directory.CreateDirectory(create);
                         }
 
-                        string pathfile = new System.IO.FileInfo(f).FullName;
-
-
-                        FileInfo fileInf = new FileInfo(pathfile);
-
-
-
                         if (fileInf.Exists)
                         {
                             File.Copy((pathfile), Path.Combine(newPath, names[names.Count - 1]), true);
+                            
+                        }
+
+                        if (names.Count == 1)
+                        {
+                           
+                            mythread.Start();
                         }
                     }
 
@@ -124,20 +183,22 @@ namespace musicPlay
 
                 if (allowfilesdrop)
                 {
+                    
                     //Создания массива для создания картинок
                     PictureBox[] pictureboxs = new PictureBox[names.Count * 2];
                     Label[] labels = new Label[names.Count];
                     Panel[] pan = new Panel[names.Count];
-
+                  
                     int li = 0;
                     int panHight = 0;
                     int pantop = 5;
 
                     for (int i = 0; i < names.Count; i++)
                     {
-                        //MessageBox.Show(names.Count.ToString());
+                       
                         //Создание панели
                         pan[i] = new Panel();
+                        pan[i].Name = i.ToString();
                         //pan[i].Name = "pan" + i.ToString();
                         pan[i].BorderStyle = BorderStyle.FixedSingle;
 
@@ -146,31 +207,32 @@ namespace musicPlay
                             pan[i].Top = 1 + 1 * 5;
                             pan[i].Width = 490;
                             pan[i].Height = 60;
-
-
                         }
                         else
                         {
-                            pan[i].Top = pantop + 5;
+                            pan[i].Top = pantop;
                             pan[i].Width = 490;
                             pan[i].Height = 60;
                         }
-
+                        
                         //Создание picturebox
                         pictureboxs[li] = new PictureBox();
                         pictureboxs[li].Name = "pic" + i;
+                       
 
                         //Создание шрифта
                         Font font1 = new Font("Times New Roman", 12.0f,
                         FontStyle.Regular);
+                        //MessageBox.Show("2");
+                        pictureboxs[li].Image = Properties.Resources.png_transparent_computer_icons_music_sound_k_song_miscellaneous_blue_text;
 
                         //Вычисление положения pic на форме
                         pictureboxs[li].Top = 5 + 1 * 5;
                         pictureboxs[li].Left = 20;
-                        pictureboxs[li].Height = 30;
+                        pictureboxs[li].Height = 30; 
                         pictureboxs[li].Width = 30;
-                        pictureboxs[li].Image = Properties.Resources.p1_3103099_70c49ceb;
                         pictureboxs[li].SizeMode = PictureBoxSizeMode.Zoom;
+                        
 
                         //Создание labels
                         labels[i] = new Label();
@@ -202,42 +264,41 @@ namespace musicPlay
                         pictureboxs[li + 1].Image = Properties.Resources.volIcon;
                         pictureboxs[li + 1].SizeMode = PictureBoxSizeMode.Zoom;
 
-                        pantop += pan[i].Height;
+                        pantop += pan[i].Height+5;
                         panel1.Controls.Add(pan[i]);
                         pan[i].Controls.Add(pictureboxs[li]);
                         pan[i].Controls.Add(labels[i]);
                         pan[i].Controls.Add(pictureboxs[li + 1]);
-
+                        
 
                         li += 2;
+                        
                     }
+                    
                 }
-
-                string[] files = Directory.GetFiles(newPath);
-
-                if (files.Length == 1)
-                {
-                    WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
-
-                    for (int k = 0; k < files.Length; k++)
-                    {
-                        //MessageBox.Show("true"+files[k]);
-                        wplayer.URL = files[k];
-                        wplayer.controls.play();
-                    }
-
-                }
-
-
             }
         }
-
 
         //Очистка плейлиста
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
-            Directory.Delete(newPath, true);
+
+            if (Directory.Exists(newPath))
+            {
+                Directory.Delete(newPath, true);
+            }
+        }
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
+
+            if (Directory.Exists(newPath))
+            {
+                Directory.Delete(newPath, true);
+            }
         }
     }
 }

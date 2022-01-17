@@ -83,6 +83,16 @@ namespace musicPlay.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap png_transparent_computer_icons_music_sound_k_song_miscellaneous_blue_text {
+            get {
+                object obj = ResourceManager.GetObject("png-transparent-computer-icons-music-sound-k-song-miscellaneous-blue-text", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PovtorIcon {
             get {
                 object obj = ResourceManager.GetObject("PovtorIcon", resourceCulture);
