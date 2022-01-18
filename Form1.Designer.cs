@@ -64,6 +64,7 @@ namespace musicPlay
             // 
             this.panel1.AllowDrop = true;
             this.panel1.AutoScroll = true;
+            this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.label3);
             this.panel1.Location = new System.Drawing.Point(222, 67);
             this.panel1.Name = "panel1";
@@ -131,6 +132,7 @@ namespace musicPlay
             this.pictureBox4Povtor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox4Povtor.TabIndex = 5;
             this.pictureBox4Povtor.TabStop = false;
+            this.pictureBox4Povtor.Click += new System.EventHandler(this.pictureBox4Povtor_Click);
             // 
             // pictureBoxPeremesh
             // 
@@ -144,13 +146,14 @@ namespace musicPlay
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Image = global::musicPlay.Properties.Resources.StartIcon;
             this.pictureBox3.Location = new System.Drawing.Point(84, 48);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(51, 47);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 3;
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // pictureBoxVpered
             // 
@@ -161,6 +164,7 @@ namespace musicPlay
             this.pictureBoxVpered.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxVpered.TabIndex = 2;
             this.pictureBoxVpered.TabStop = false;
+            this.pictureBoxVpered.Click += new System.EventHandler(this.pictureBoxVpered_Click);
             // 
             // pictureBoxNazad
             // 
@@ -171,6 +175,7 @@ namespace musicPlay
             this.pictureBoxNazad.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxNazad.TabIndex = 1;
             this.pictureBoxNazad.TabStop = false;
+            this.pictureBoxNazad.Click += new System.EventHandler(this.pictureBoxNazad_Click);
             // 
             // progressBar1
             // 
@@ -239,6 +244,7 @@ namespace musicPlay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(744, 449);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBoxSave);
@@ -270,22 +276,22 @@ namespace musicPlay
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.PictureBox pictureBoxVolum;
-        private System.Windows.Forms.PictureBox pictureBoxSvern;
-        private System.Windows.Forms.PictureBox pictureBox4Povtor;
-        private System.Windows.Forms.PictureBox pictureBoxPeremesh;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBoxVpered;
-        private System.Windows.Forms.PictureBox pictureBoxNazad;
-        private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox pictureBoxSave;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        public System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.GroupBox groupBox3;
+        public System.Windows.Forms.PictureBox pictureBoxVolum;
+        public System.Windows.Forms.PictureBox pictureBoxSvern;
+        public System.Windows.Forms.PictureBox pictureBox4Povtor;
+        public System.Windows.Forms.PictureBox pictureBoxPeremesh;
+        public System.Windows.Forms.PictureBox pictureBox3;
+        public System.Windows.Forms.PictureBox pictureBoxVpered;
+        public System.Windows.Forms.PictureBox pictureBoxNazad;
+        public System.Windows.Forms.ProgressBar progressBar1;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.PictureBox pictureBoxSave;
+        public System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

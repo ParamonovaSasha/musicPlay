@@ -160,5 +160,14 @@
   <ItemGroup>
     <None Include="Resources\png-transparent-computer-icons-music-sound-k-song-miscellaneous-blue-text.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pauseIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StartIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\output-onlinepngtools %281%29.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

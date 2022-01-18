@@ -73,9 +73,29 @@ namespace musicPlay.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap output_onlinepngtools__1_ {
+            get {
+                object obj = ResourceManager.GetObject("output-onlinepngtools (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap p1_3103099_70c49ceb {
             get {
                 object obj = ResourceManager.GetObject("p1_3103099_70c49ceb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pauseIcon {
+            get {
+                object obj = ResourceManager.GetObject("pauseIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -106,6 +126,16 @@ namespace musicPlay.Properties {
         internal static System.Drawing.Bitmap SmeshIcon {
             get {
                 object obj = ResourceManager.GetObject("SmeshIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StartIcon {
+            get {
+                object obj = ResourceManager.GetObject("StartIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
