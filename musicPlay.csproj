@@ -169,5 +169,11 @@
   <ItemGroup>
     <None Include="Resources\output-onlinepngtools %281%29.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\krestik.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SmeshIcon1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

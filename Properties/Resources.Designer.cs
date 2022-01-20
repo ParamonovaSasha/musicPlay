@@ -63,6 +63,16 @@ namespace musicPlay.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap krestik {
+            get {
+                object obj = ResourceManager.GetObject("krestik", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NextIcon {
             get {
                 object obj = ResourceManager.GetObject("NextIcon", resourceCulture);
@@ -126,6 +136,16 @@ namespace musicPlay.Properties {
         internal static System.Drawing.Bitmap SmeshIcon {
             get {
                 object obj = ResourceManager.GetObject("SmeshIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SmeshIcon1 {
+            get {
+                object obj = ResourceManager.GetObject("SmeshIcon1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

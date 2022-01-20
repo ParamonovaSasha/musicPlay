@@ -24,7 +24,8 @@ namespace musicPlay
 
         public List<Thread> ListThread= new List<Thread>();
         public delegate void DeigateSong();
-        
+
+        public delegate void newsong();
         int song;
 
         int onepantop;
@@ -32,6 +33,12 @@ namespace musicPlay
         bool loop;
 
         bool pause;
+
+        int timesong;
+
+        string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
+
+        List<string> names = new List<string>();
 
         public void ColorChange(string number)
         {
@@ -52,8 +59,142 @@ namespace musicPlay
             }
         }
 
-        string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
+        public void SongChange()
+        {
+            string[] files = Directory.GetFiles(newPath);
 
+            if (song < (files.Length - 1))
+            {
+
+                if (!loop)
+                {
+                    song++;
+                    //MessageBox.Show("Я здесь, песня номер" + song);
+                    //MessageBox.Show(files[song]);
+                    //wplayer.URL = null;
+                    wplayer.URL = files[song];
+                    wplayer.controls.play();
+
+                }
+                else
+                {
+                    //wplayer.URL = null;
+                    wplayer.URL = files[song];
+                    wplayer.controls.play();
+
+                }
+            }
+        }
+
+        public void PrintSong()
+        {
+            string[] files = Directory.GetFiles(newPath);
+            panel1.Controls.Clear();
+            onepantop = 0;
+
+            for (int i = 0; i < files.Length; i++)
+            {
+                //MessageBox.Show("i= " + i);
+
+                //Создания массива для создания картинок
+                PictureBox[] pictureboxs = new PictureBox[2];
+                Label labels = new Label();
+                Panel pan = new Panel();
+
+                int li = 0;
+                int panHight = 0;
+                int pantop = 5;
+
+
+                //Создание панели
+                if (i == song)
+                {
+                    pan.BackColor = Color.FromArgb(250, 250, 210);
+                }
+
+
+                pan.Name = i.ToString();
+                //pan[i].Name = "pan" + i.ToString();
+                pan.BorderStyle = BorderStyle.FixedSingle;
+
+                if (names.Count == 1)
+                {
+                    pan.Top = 1 + 1 * 5;
+                    pan.Width = 490;
+                    pan.Height = 60;
+                }
+                else
+                {
+                    pan.Top = pantop + (onepantop * (i));
+                    pan.Width = 490;
+                    pan.Height = 60;
+                }
+
+                //Создание picturebox
+                pictureboxs[li] = new PictureBox();
+                pictureboxs[li].Name = i.ToString();
+
+
+                //Создание шрифта
+                Font font1 = new Font("Times New Roman", 12.0f,
+                FontStyle.Regular);
+                //MessageBox.Show("2");
+                pictureboxs[li].Image = Properties.Resources.png_transparent_computer_icons_music_sound_k_song_miscellaneous_blue_text;
+
+                //Вычисление положения pic на форме
+                pictureboxs[li].Top = 5 + 1 * 5;
+                pictureboxs[li].Left = 20;
+                pictureboxs[li].Height = 30;
+                pictureboxs[li].Width = 30;
+                pictureboxs[li].SizeMode = PictureBoxSizeMode.Zoom;
+
+
+                //Создание labels
+                labels = new Label();
+                if (names[i].Length < 40)
+                {
+                    labels.Text = names[i];
+                }
+                else
+                {
+                    labels.Text = names[i].Substring(0, 39) + "....";
+                }
+                labels.Font = font1;
+
+                //Вычисление положения label на форме
+                labels.Top = 10 + 1 * 10;
+                labels.Left = 80;
+                labels.AutoSize = true;
+
+                //Создание кнопки удалить
+                //Создание picturebox
+                pictureboxs[li + 1] = new PictureBox();
+                pictureboxs[li + 1].Name = li + 1.ToString();
+
+                //Вычисление положения pic на форме
+                pictureboxs[li + 1].Top = 5 + 1 * 5;
+                pictureboxs[li + 1].Left = 420;
+                pictureboxs[li + 1].Height = 30;
+                pictureboxs[li + 1].Width = 30;
+                pictureboxs[li + 1].Image = Properties.Resources.krestik;
+                pictureboxs[li + 1].SizeMode = PictureBoxSizeMode.Zoom;
+
+
+                panel1.Controls.Add(pan);
+                //MessageBox.Show("Панель добавлена");
+                pan.Controls.Add(pictureboxs[li]);
+                pan.Controls.Add(labels);
+                pan.Controls.Add(pictureboxs[li + 1]);
+                pan.Click += Panel_Click;
+
+
+                li += 2;
+                if (i == 0)
+                {
+                    onepantop = pan.Height;
+                }
+            }
+        }
 
         public void  musicPlay()
         {
@@ -71,39 +212,21 @@ namespace musicPlay
             {
                 //MessageBox.Show("Playstate сейчас = " + wplayer.playState.ToString());
 
-                files = Directory.GetFiles(newPath);
-
-                if (wplayer.playState == WMPPlayState.wmppsStopped)
+                if (wplayer.playState == WMPPlayState.wmppsMediaEnded)
                 {
-                    if (song < (files.Length - 1))
-                    {
-                        //MessageBox.Show("Я здесь, песня номер"+song);
-                        if (!loop)
-                        {
-                            song++;
-                            wplayer.URL = files[song];
-                        }
-                        else
-                        {
-                            wplayer.URL = null;
-                            wplayer.URL = files[song];
-                        }
-                        
-                       
-                        
-                    }
+                    BeginInvoke(new newsong(SongChange));
                 }
-
             }
+                
 
             void WMP_SongChange(object Playlist, WMPPlaylistChangeEventType change)
             {
                 if (wplayer.URL != null)
                 {
-                    //MessageBox.Show("Музыка изменена");
+                    MessageBox.Show("Музыка изменена");
 
                     BeginInvoke(new MyDelegate(ColorChange), song.ToString());
-                    wplayer.controls.play();
+                    ;
                 }
                 //song++;
             }
@@ -112,7 +235,7 @@ namespace musicPlay
 
        
 
-        List<string> names = new List<string>();
+        
 
 
         public Form1()
@@ -190,13 +313,22 @@ namespace musicPlay
 
                 foreach (string f in (string[])e.Data.GetData(DataFormats.FileDrop))
                 {
-                    allowfilesdrop = ((new System.IO.FileInfo(f)).Extension == ".mp3");
+                    string name = new System.IO.FileInfo(f).Name;
+
+                    if (!(names.Contains(name)))
+                    {
+                        allowfilesdrop = ((new System.IO.FileInfo(f)).Extension == ".mp3");
+                    }
 
                     if (allowfilesdrop)
                     {
-
-                        //Добавление имени файла
-                        names.Add(new System.IO.FileInfo(f).Name);
+                        
+                        if(!(names.Contains(name)))
+                        {
+                            //Добавление имени файла
+                            names.Add(new System.IO.FileInfo(f).Name);
+                        }
+                        
                         path = Environment.CurrentDirectory;
 
                         string create = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
@@ -233,7 +365,7 @@ namespace musicPlay
                             Thread myth = new Thread(musicPlay);
                             song = 0;
                             myth.Name = "Поток1";
-                            ListThread.Add(myth);
+                            //ListThread.Add(myth);
                             myth.Start();
                             pictureBox3.Image = Properties.Resources.pauseIcon;
                             pause = false;
@@ -244,101 +376,7 @@ namespace musicPlay
 
                 if (allowfilesdrop)
                 {
-                    
-                    //Создания массива для создания картинок
-                    PictureBox[] pictureboxs = new PictureBox[2];
-                    Label labels = new Label();
-                    Panel pan = new Panel();
-                  
-                    int li = 0;
-                    int panHight = 0;
-                    int pantop = 5;
-                    
-
-                        //Создание панели
-                        pan = new Panel();
-                        pan.Name = (names.Count-1).ToString();
-                        //pan[i].Name = "pan" + i.ToString();
-                        pan.BorderStyle = BorderStyle.FixedSingle;
-
-                        if (names.Count == 1)
-                        {
-                            pan.Top = 1 + 1 * 5;
-                            pan.Width = 490;
-                            pan.Height = 60;
-                        }
-                        else
-                        {
-                            pan.Top = pantop+(onepantop*(names.Count-1));
-                            pan.Width = 490;
-                            pan.Height = 60;
-                        }
-                        
-                        //Создание picturebox
-                        pictureboxs[li] = new PictureBox();
-                        pictureboxs[li].Name = (names.Count-1).ToString();
-
-
-                        //Создание шрифта
-                        Font font1 = new Font("Times New Roman", 12.0f,
-                        FontStyle.Regular);
-                        //MessageBox.Show("2");
-                        pictureboxs[li].Image = Properties.Resources.png_transparent_computer_icons_music_sound_k_song_miscellaneous_blue_text;
-
-                        //Вычисление положения pic на форме
-                        pictureboxs[li].Top = 5 + 1 * 5;
-                        pictureboxs[li].Left = 20;
-                        pictureboxs[li].Height = 30; 
-                        pictureboxs[li].Width = 30;
-                        pictureboxs[li].SizeMode = PictureBoxSizeMode.Zoom;
-                        
-
-                        //Создание labels
-                        labels = new Label();
-                        if (names[(names.Count-1)].Length < 40)
-                        {
-                            labels.Text = names[(names.Count - 1)];
-                        }
-                        else
-                        {
-                            labels.Text = names[(names.Count - 1)].Substring(0, 39) + "....";
-                        }
-                        labels.Font = font1;
-
-                        //Вычисление положения label на форме
-                        labels.Top = 10 + 1 * 10;
-                        labels.Left = 80;
-                        labels.AutoSize = true;
-
-                        //Создание кнопки удалить
-                        //Создание picturebox
-                        pictureboxs[li + 1] = new PictureBox();
-                        pictureboxs[li + 1].Name = li + 1.ToString();
-
-                        //Вычисление положения pic на форме
-                        pictureboxs[li + 1].Top = 5 + 1 * 5;
-                        pictureboxs[li + 1].Left = 420;
-                        pictureboxs[li + 1].Height = 30;
-                        pictureboxs[li + 1].Width = 30;
-                        pictureboxs[li + 1].Image = Properties.Resources.volIcon;
-                        pictureboxs[li + 1].SizeMode = PictureBoxSizeMode.Zoom;
-
-                        
-                        panel1.Controls.Add(pan);
-                        pan.Controls.Add(pictureboxs[li]);
-                        pan.Controls.Add(labels);
-                        pan.Controls.Add(pictureboxs[li + 1]);
-                        pan.Click += Panel_Click;
-
-
-                    li += 2;
-                        if (names.Count == 1)
-                        {
-                            onepantop = pan.Height;
-                        }
-                    //MessageBox.Show("Все еще здесь");
-
-
+                    PrintSong();
                 }
             }
         }
@@ -347,8 +385,8 @@ namespace musicPlay
         {
             
             song=Convert.ToInt32((sender as Panel).Name);
-            MessageBox.Show(song.ToString());
-            MessageBox.Show("Песня запущена");
+            //MessageBox.Show(song.ToString());
+            //MessageBox.Show("Песня запущена");
             string[] files = Directory.GetFiles(newPath);
             files = Directory.GetFiles(newPath);
             wplayer.URL = files[song];
