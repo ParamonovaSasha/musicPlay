@@ -26,27 +26,37 @@ namespace musicPlay
         public delegate void DeigateSong();
 
         public delegate void newsong();
+
+        //Номер проигрываемой песни
         int song;
 
+        //Высота одной панели
         int onepantop;
 
+        //Повтор
         bool loop;
 
+        //Пауза
         bool pause;
 
-        int timesong;
+        //Перемешивание
+        bool smesh;
 
+        //Лист для песен в смешанном порядке
+        List<string> filesmesh = new List<string>();
+
+        //Путь до папки с песнями
         string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
 
+        //Лист для названий песен
         List<string> names = new List<string>();
 
+
+        //Метод для выделения панели с играемой песней
         public void ColorChange(string number)
         {
-            //MessageBox.Show("Я попал в метод");
-
             foreach (Panel pan in panel1.Controls.OfType<Panel>())
             {
-                //MessageBox.Show("Имя панели=" + pan.Name+ "Искомое имя "+number);
                 if (pan.Name == number)
                 {
                     pan.BackColor = Color.FromArgb(250, 250, 210);
@@ -59,9 +69,16 @@ namespace musicPlay
             }
         }
 
+        //Метод для смены песни в проигрыватели
         public void SongChange()
         {
             string[] files = Directory.GetFiles(newPath);
+
+            if (smesh)
+            {
+                files = filesmesh.ToArray();
+            }
+      
 
             if (song < (files.Length - 1))
             {
@@ -69,9 +86,6 @@ namespace musicPlay
                 if (!loop)
                 {
                     song++;
-                    //MessageBox.Show("Я здесь, песня номер" + song);
-                    //MessageBox.Show(files[song]);
-                    //wplayer.URL = null;
                     wplayer.URL = files[song];
                     wplayer.controls.play();
 
@@ -86,17 +100,18 @@ namespace musicPlay
             }
         }
 
+
+        //Метод, отрисовывавший панели с песнями на форме
+
         public void PrintSong()
         {
+            //MessageBox.Show(names.Count.ToString());
             string[] files = Directory.GetFiles(newPath);
             panel1.Controls.Clear();
             onepantop = 0;
 
             for (int i = 0; i < files.Length; i++)
             {
-                //MessageBox.Show("i= " + i);
-
-                //Создания массива для создания картинок
                 PictureBox[] pictureboxs = new PictureBox[2];
                 Label labels = new Label();
                 Panel pan = new Panel();
@@ -106,7 +121,6 @@ namespace musicPlay
                 int pantop = 5;
 
 
-                //Создание панели
                 if (i == song)
                 {
                     pan.BackColor = Color.FromArgb(250, 250, 210);
@@ -114,7 +128,6 @@ namespace musicPlay
 
 
                 pan.Name = i.ToString();
-                //pan[i].Name = "pan" + i.ToString();
                 pan.BorderStyle = BorderStyle.FixedSingle;
 
                 if (names.Count == 1)
@@ -130,18 +143,14 @@ namespace musicPlay
                     pan.Height = 60;
                 }
 
-                //Создание picturebox
+               
                 pictureboxs[li] = new PictureBox();
-                pictureboxs[li].Name = i.ToString();
-
-
-                //Создание шрифта
+                
                 Font font1 = new Font("Times New Roman", 12.0f,
                 FontStyle.Regular);
-                //MessageBox.Show("2");
+                
                 pictureboxs[li].Image = Properties.Resources.png_transparent_computer_icons_music_sound_k_song_miscellaneous_blue_text;
 
-                //Вычисление положения pic на форме
                 pictureboxs[li].Top = 5 + 1 * 5;
                 pictureboxs[li].Left = 20;
                 pictureboxs[li].Height = 30;
@@ -149,7 +158,7 @@ namespace musicPlay
                 pictureboxs[li].SizeMode = PictureBoxSizeMode.Zoom;
 
 
-                //Создание labels
+              
                 labels = new Label();
                 if (names[i].Length < 40)
                 {
@@ -161,27 +170,26 @@ namespace musicPlay
                 }
                 labels.Font = font1;
 
-                //Вычисление положения label на форме
+
                 labels.Top = 10 + 1 * 10;
                 labels.Left = 80;
                 labels.AutoSize = true;
 
-                //Создание кнопки удалить
-                //Создание picturebox
+
                 pictureboxs[li + 1] = new PictureBox();
                 pictureboxs[li + 1].Name = li + 1.ToString();
 
-                //Вычисление положения pic на форме
+
                 pictureboxs[li + 1].Top = 5 + 1 * 5;
                 pictureboxs[li + 1].Left = 420;
                 pictureboxs[li + 1].Height = 30;
                 pictureboxs[li + 1].Width = 30;
                 pictureboxs[li + 1].Image = Properties.Resources.krestik;
                 pictureboxs[li + 1].SizeMode = PictureBoxSizeMode.Zoom;
-
+                pictureboxs[li + 1].Click += SongDelete_Click;
+                pictureboxs[li + 1].Name = i.ToString();
 
                 panel1.Controls.Add(pan);
-                //MessageBox.Show("Панель добавлена");
                 pan.Controls.Add(pictureboxs[li]);
                 pan.Controls.Add(labels);
                 pan.Controls.Add(pictureboxs[li + 1]);
@@ -196,55 +204,54 @@ namespace musicPlay
             }
         }
 
+
+        //Метод для запуска плайера в другом потоке
         public void  musicPlay()
         {
             string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
             
             wplayer.PlayStateChange += new _WMPOCXEvents_PlayStateChangeEventHandler(WMP_PlayStateChange);
             wplayer.PlaylistChange += new _WMPOCXEvents_PlaylistChangeEventHandler(WMP_SongChange);
-            string[] files = Directory.GetFiles(newPath);
 
-            files = Directory.GetFiles(newPath);
+            //Считывание всех файлов из папки
+            string[] files = Directory.GetFiles(newPath);
             wplayer.URL = files[song];
 
-           
+
+            //Событие смены у плейера свойства PlayState
             void WMP_PlayStateChange(int NewState)
             {
                 //MessageBox.Show("Playstate сейчас = " + wplayer.playState.ToString());
 
+                //Если медиа закончилось отрабатывается метод с запуском новой песни
                 if (wplayer.playState == WMPPlayState.wmppsMediaEnded)
                 {
                     BeginInvoke(new newsong(SongChange));
                 }
             }
                 
-
+            //Событие происходит при смене URL
             void WMP_SongChange(object Playlist, WMPPlaylistChangeEventType change)
             {
                 if (wplayer.URL != null)
                 {
-                    MessageBox.Show("Музыка изменена");
 
                     BeginInvoke(new MyDelegate(ColorChange), song.ToString());
-                    ;
+
                 }
-                //song++;
+
             }
 
         }
-
-       
-
-        
-
 
         public Form1()
         {
             InitializeComponent();
 
-            
             pause = true;
             loop = false;
+            smesh = false;
+
             //Подсказки при наведении на кнопки
 
             ToolTip t1 = new ToolTip();
@@ -262,9 +269,6 @@ namespace musicPlay
 
             ToolTip t5 = new ToolTip();
             t5.SetToolTip(pictureBoxSave, "Сохранить текущий плейлист");
-
-            ToolTip t6 = new ToolTip();
-            t6.SetToolTip(pictureBoxVolum, "Изменить уровень громкости");
 
             ToolTip t7 = new ToolTip();
             t7.SetToolTip(pictureBoxVpered, "Следующая песня");
@@ -315,10 +319,12 @@ namespace musicPlay
                 {
                     string name = new System.IO.FileInfo(f).Name;
 
+                    //Проверка формата заброшенного файла
                     if (!(names.Contains(name)))
                     {
                         allowfilesdrop = ((new System.IO.FileInfo(f)).Extension == ".mp3");
                     }
+
 
                     if (allowfilesdrop)
                     {
@@ -341,12 +347,14 @@ namespace musicPlay
 
                         //MessageBox.Show(names.Count.ToString());
 
+                        //Если это первая песня, то создается папка
                         if (names.Count == 1)
                         {
                             Directory.CreateDirectory(create);
                             label3.Text="";
                         }
 
+                        //В папку копируется файл
                         if (fileInf.Exists)
                         {
                             try
@@ -360,12 +368,12 @@ namespace musicPlay
                             
                         }
 
+                        //Если забрасываемая песня первая, то создается и запускается новый поток
                         if (names.Count == 1)
                         {
                             Thread myth = new Thread(musicPlay);
                             song = 0;
                             myth.Name = "Поток1";
-                            //ListThread.Add(myth);
                             myth.Start();
                             pictureBox3.Image = Properties.Resources.pauseIcon;
                             pause = false;
@@ -374,6 +382,7 @@ namespace musicPlay
 
                 }
 
+                //Отрисовка 
                 if (allowfilesdrop)
                 {
                     PrintSong();
@@ -381,15 +390,40 @@ namespace musicPlay
             }
         }
 
+        //При нажатии на панель с песней она включается
         private void Panel_Click(object sender, EventArgs e)
         {
+            try
+            {
+                song = Convert.ToInt32((sender as Panel).Name);
+                string[] files = Directory.GetFiles(newPath);
+                files = Directory.GetFiles(newPath);
+                wplayer.URL = files[song];
+            }
+            catch
+            {
+
+            }
+        }
+
+        //При нажатии кнопки удаления песня стирается с плейлиста и происходит перерисовка
+        private void SongDelete_Click(object sender, EventArgs e)
+        {
             
-            song=Convert.ToInt32((sender as Panel).Name);
-            //MessageBox.Show(song.ToString());
-            //MessageBox.Show("Песня запущена");
-            string[] files = Directory.GetFiles(newPath);
-            files = Directory.GetFiles(newPath);
-            wplayer.URL = files[song];
+            int del= Convert.ToInt32((sender as PictureBox).Name);
+            if (del != song)
+            {
+                string filename = Path.Combine(newPath, names[del]);
+                File.Delete(filename);
+                names.RemoveAt(del);
+
+                if(del<song)
+                {
+                    song--;
+                }
+
+                PrintSong();
+            }
         }
 
         //Очистка плейлиста
@@ -420,6 +454,7 @@ namespace musicPlay
             }
         }
 
+        //Пауза
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             if (Directory.Exists(newPath))
@@ -442,6 +477,7 @@ namespace musicPlay
             }
         }
 
+        //Повтор
         private void pictureBox4Povtor_Click(object sender, EventArgs e)
         {
             loop = !loop;
@@ -455,25 +491,23 @@ namespace musicPlay
             }
         }
 
+        //Следующая песня
         private void pictureBoxVpered_Click(object sender, EventArgs e)
         {
             if (Directory.Exists(newPath))
             {
                 string[] files = Directory.GetFiles(newPath);
 
+                //Если далее есть еще песня, то она воспроизводится
                 if (song < (files.Length - 1))
                 {
-
-                    if (!loop)
-                    {
                         song++;
                         wplayer.URL = files[song];
-                    }
-
                 }
             }
         }
 
+        //Предыдущая песня
         private void pictureBoxNazad_Click(object sender, EventArgs e)
         {
             if (Directory.Exists(newPath))
@@ -485,6 +519,58 @@ namespace musicPlay
                     song--;
                     wplayer.URL = files[song];
                 }
+            }
+        }
+
+        //Перемешивание
+        private void pictureBoxPeremesh_Click(object sender, EventArgs e)
+        {
+            smesh = !smesh;
+            string[] files = Directory.GetFiles(newPath);
+
+            if (smesh)
+            {
+                names.Clear();
+                pictureBoxPeremesh.Image = Properties.Resources.smeshwhite;
+                Random random= new Random();
+
+                for (int i = 0; i <files.Length; i++)
+                {
+                    if (i == song)
+                    {
+                        filesmesh.Add(files[i]);
+                    }
+                    else
+                    {
+                        int j = random.Next(0, files.Length);
+
+                        while (filesmesh.Contains(files[j]))
+                        {
+                            j = random.Next(0, (files.Length));
+                        }
+                        string pathsong = files[j];
+                        filesmesh.Add(pathsong);
+                    }
+                    string name = new System.IO.FileInfo(filesmesh[i]).Name;
+                    names.Add(name);
+                }
+
+                PrintSong();
+            }
+
+            else
+            {
+                pictureBoxPeremesh.Image = Properties.Resources.SmeshIcon;
+                filesmesh.Clear();
+                names.Clear();
+
+                foreach (string f in files)
+                {
+                    string name = new System.IO.FileInfo(f).Name;
+                    names.Add(name);
+                }
+
+                PrintSong();
             }
         }
     }

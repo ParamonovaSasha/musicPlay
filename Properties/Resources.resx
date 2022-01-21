@@ -118,14 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="StartIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StartIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="png-transparent-computer-icons-music-sound-k-song-miscellaneous-blue-text" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\png-transparent-computer-icons-music-sound-k-song-miscellaneous-blue-text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SmeshIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SmeshIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="p1_3103099_70c49ceb" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\p1_3103099_70c49ceb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pauseIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pauseIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="krestik" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\krestik.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -136,8 +139,8 @@
   <data name="output-onlinepngtools (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\output-onlinepngtools (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="NextIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NextIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SmeshIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SmeshIcon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="volIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\volIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,13 +148,13 @@
   <data name="svernIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\svernIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StartIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\StartIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="p1_3103099_70c49ceb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\p1_3103099_70c49ceb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pauseIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pauseIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="NextIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NextIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SmeshIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SmeshIcon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="smeshwhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\smeshwhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

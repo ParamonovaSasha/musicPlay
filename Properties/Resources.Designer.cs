@@ -153,6 +153,16 @@ namespace musicPlay.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap smeshwhite {
+            get {
+                object obj = ResourceManager.GetObject("smeshwhite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap StartIcon {
             get {
                 object obj = ResourceManager.GetObject("StartIcon", resourceCulture);
