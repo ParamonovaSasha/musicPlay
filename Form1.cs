@@ -13,17 +13,15 @@ using WMPLib;
 
 namespace musicPlay
 {
-    
+
     public partial class Form1 : Form
     {
         public delegate void MyDelegate(string number);
-
-        
+        //public delegate void PauseDelegate();
 
         WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
 
-        public List<Thread> ListThread= new List<Thread>();
-        public delegate void DeigateSong();
+        public List<Thread> ListThread = new List<Thread>();
 
         public delegate void newsong();
 
@@ -52,6 +50,7 @@ namespace musicPlay
         List<string> names = new List<string>();
 
 
+
         //Метод для выделения панели с играемой песней
         public void ColorChange(string number)
         {
@@ -69,9 +68,11 @@ namespace musicPlay
             }
         }
 
+
         //Метод для смены песни в проигрыватели
         public void SongChange()
         {
+           
             string[] files = Directory.GetFiles(newPath);
 
             if (smesh)
@@ -85,6 +86,7 @@ namespace musicPlay
 
                 if (!loop)
                 {
+
                     song++;
                     wplayer.URL = files[song];
                     wplayer.controls.play();
@@ -226,6 +228,7 @@ namespace musicPlay
                 //Если медиа закончилось отрабатывается метод с запуском новой песни
                 if (wplayer.playState == WMPPlayState.wmppsMediaEnded)
                 {
+                    //MessageBox.Show("Песня сменилась");
                     BeginInvoke(new newsong(SongChange));
                 }
             }
@@ -235,9 +238,14 @@ namespace musicPlay
             {
                 if (wplayer.URL != null)
                 {
+                    //MessageBox.Show(Application.OpenForms.Count.ToString());
+                    if (Application.OpenForms.Count == 2)
+                    {
+                        NewSong.EventHandler(names[song]);
+                    }
 
                     BeginInvoke(new MyDelegate(ColorChange), song.ToString());
-
+                    
                 }
 
             }
@@ -247,6 +255,14 @@ namespace musicPlay
         public Form1()
         {
             InitializeComponent();
+
+            PauseClass.EventHandler = new PauseClass.Pause(pictureBox3_Click);
+            SmeshClass.EventHandler = new SmeshClass.Smesh(pictureBoxPeremesh_Click);
+            VperedClass.EventHandler = new VperedClass.Vpered(pictureBoxVpered_Click);
+            NazadClass.EventHandler = new NazadClass.Nazad(pictureBoxNazad_Click);
+            LoopClass.EventHandler = new LoopClass.Loop(pictureBox4Povtor_Click);
+
+            //ShowClass.EventHandler = new ShowClass.Show(Show);
 
             pause = true;
             loop = false;
@@ -426,10 +442,11 @@ namespace musicPlay
             }
         }
 
-        //Очистка плейлиста
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
+            
             string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
+            
             try
             {
                 if (Directory.Exists(newPath))
@@ -443,19 +460,8 @@ namespace musicPlay
             }
         }
 
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
-
-            if (Directory.Exists(newPath))
-            {
-                Directory.Delete(newPath, true);
-            }
-        }
-
         //Пауза
-        private void pictureBox3_Click(object sender, EventArgs e)
+        public void pictureBox3_Click()
         {
             if (Directory.Exists(newPath))
             {
@@ -478,7 +484,7 @@ namespace musicPlay
         }
 
         //Повтор
-        private void pictureBox4Povtor_Click(object sender, EventArgs e)
+        public void pictureBox4Povtor_Click()
         {
             loop = !loop;
             if (loop)
@@ -492,11 +498,16 @@ namespace musicPlay
         }
 
         //Следующая песня
-        private void pictureBoxVpered_Click(object sender, EventArgs e)
+        public void pictureBoxVpered_Click()
         {
             if (Directory.Exists(newPath))
             {
                 string[] files = Directory.GetFiles(newPath);
+
+                if (smesh)
+                {
+                    files = filesmesh.ToArray();
+                }
 
                 //Если далее есть еще песня, то она воспроизводится
                 if (song < (files.Length - 1))
@@ -508,11 +519,17 @@ namespace musicPlay
         }
 
         //Предыдущая песня
-        private void pictureBoxNazad_Click(object sender, EventArgs e)
+        public void pictureBoxNazad_Click()
         {
             if (Directory.Exists(newPath))
             {
+
                 string[] files = Directory.GetFiles(newPath);
+
+                if (smesh)
+                {
+                    files = filesmesh.ToArray();
+                }
 
                 if (song != 0)
                 {
@@ -523,7 +540,7 @@ namespace musicPlay
         }
 
         //Перемешивание
-        private void pictureBoxPeremesh_Click(object sender, EventArgs e)
+        public void pictureBoxPeremesh_Click()
         {
             smesh = !smesh;
             string[] files = Directory.GetFiles(newPath);
@@ -539,20 +556,24 @@ namespace musicPlay
                     if (i == song)
                     {
                         filesmesh.Add(files[i]);
+ 
                     }
                     else
                     {
                         int j = random.Next(0, files.Length);
 
-                        while (filesmesh.Contains(files[j]))
+                        while ((filesmesh.Contains(files[j])) || (files[j]==files[song]))
                         {
                             j = random.Next(0, (files.Length));
                         }
                         string pathsong = files[j];
                         filesmesh.Add(pathsong);
+                        
                     }
                     string name = new System.IO.FileInfo(filesmesh[i]).Name;
                     names.Add(name);
+
+
                 }
 
                 PrintSong();
@@ -572,6 +593,68 @@ namespace musicPlay
 
                 PrintSong();
             }
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            pictureBox3_Click();
+        }
+
+        private void pictureBoxSvern_Click(object sender, EventArgs e)
+        {
+            Form2 f2 = new Form2();
+            this.Hide();
+            f2.pause = pause;
+            f2.peremesh = smesh;
+            f2.loop = loop;
+            f2.newPath = newPath;
+            if (names.Count > 0)
+            {
+                NewSong.EventHandler(names[song]);
+            }
+            f2.Show();
+
+
+        }
+
+        private void pictureBoxNazad_Click(object sender, EventArgs e)
+        {
+            pictureBoxNazad_Click();
+        }
+
+        private void pictureBoxVpered_Click(object sender, EventArgs e)
+        {
+            pictureBoxVpered_Click();
+        }
+
+        private void pictureBoxPeremesh_Click(object sender, EventArgs e)
+        {
+            pictureBoxPeremesh_Click();
+        }
+
+        private void pictureBox4Povtor_Click(object sender, EventArgs e)
+        {
+            pictureBox4Povtor_Click();
+        }
+
+
+        private void pictureBoxClose_Click(object sender, EventArgs e)
+        {
+            string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
+            try
+            {
+                if (Directory.Exists(newPath))
+                {
+                    Directory.Delete(newPath, true);
+                }
+            }
+            catch
+            {
+
+            }
+
+            Close();
+            Application.Exit();
         }
     }
 }
