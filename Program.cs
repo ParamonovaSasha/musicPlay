@@ -51,6 +51,18 @@ namespace musicPlay
         public static Playlist EventHandler;
     }
 
+    public static class PositionChangeClass
+    {
+        public delegate void PositionChange(int posX);
+        public static PositionChange EventHandler;
+    }
+
+    public static class PositionMouseClickClass
+    {
+        public delegate void PositionMouseClick(int posX);
+        public static PositionMouseClick EventHandler;
+    }
+
     static class Program
     {
 

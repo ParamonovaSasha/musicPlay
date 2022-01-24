@@ -33,6 +33,9 @@ namespace musicPlay
             this.panel1 = new System.Windows.Forms.Panel();
             this.label31 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.panel3TimeSong = new System.Windows.Forms.Panel();
+            this.pictureBoxPolz = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBoxSvern = new System.Windows.Forms.PictureBox();
             this.pictureBox4Povtor = new System.Windows.Forms.PictureBox();
             this.pictureBoxPeremesh = new System.Windows.Forms.PictureBox();
@@ -41,14 +44,19 @@ namespace musicPlay
             this.pictureBoxNazad = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.buttonSozd = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBoxSave = new System.Windows.Forms.PictureBox();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBoxClear = new System.Windows.Forms.PictureBox();
+            this.pictureBoxDelete = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.panel3TimeSong.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPolz)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSvern)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4Povtor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPeremesh)).BeginInit();
@@ -59,6 +67,8 @@ namespace musicPlay
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClear)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDelete)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -69,7 +79,7 @@ namespace musicPlay
             this.panel1.Controls.Add(this.label31);
             this.panel1.Location = new System.Drawing.Point(222, 80);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(495, 263);
+            this.panel1.Size = new System.Drawing.Size(495, 256);
             this.panel1.TabIndex = 4;
             this.panel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.panel1_DragDrop);
             this.panel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.panel1_DragEnter);
@@ -88,24 +98,55 @@ namespace musicPlay
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.PeachPuff;
+            this.groupBox3.Controls.Add(this.panel3TimeSong);
             this.groupBox3.Controls.Add(this.pictureBoxSvern);
             this.groupBox3.Controls.Add(this.pictureBox4Povtor);
             this.groupBox3.Controls.Add(this.pictureBoxPeremesh);
             this.groupBox3.Controls.Add(this.pictureBox3);
             this.groupBox3.Controls.Add(this.pictureBoxVpered);
             this.groupBox3.Controls.Add(this.pictureBoxNazad);
-            this.groupBox3.Location = new System.Drawing.Point(221, 348);
+            this.groupBox3.Location = new System.Drawing.Point(221, 341);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(517, 81);
+            this.groupBox3.Size = new System.Drawing.Size(512, 109);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
+            // 
+            // panel3TimeSong
+            // 
+            this.panel3TimeSong.Controls.Add(this.pictureBoxPolz);
+            this.panel3TimeSong.Controls.Add(this.pictureBox2);
+            this.panel3TimeSong.Location = new System.Drawing.Point(33, 8);
+            this.panel3TimeSong.Name = "panel3TimeSong";
+            this.panel3TimeSong.Size = new System.Drawing.Size(450, 22);
+            this.panel3TimeSong.TabIndex = 7;
+            // 
+            // pictureBoxPolz
+            // 
+            this.pictureBoxPolz.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxPolz.Image")));
+            this.pictureBoxPolz.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxPolz.Name = "pictureBoxPolz";
+            this.pictureBoxPolz.Size = new System.Drawing.Size(22, 22);
+            this.pictureBoxPolz.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxPolz.TabIndex = 1;
+            this.pictureBoxPolz.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(450, 19);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseClick);
             // 
             // pictureBoxSvern
             // 
             this.pictureBoxSvern.Image = global::musicPlay.Properties.Resources.svernIcon;
-            this.pictureBoxSvern.Location = new System.Drawing.Point(432, 18);
+            this.pictureBoxSvern.Location = new System.Drawing.Point(422, 36);
             this.pictureBoxSvern.Name = "pictureBoxSvern";
             this.pictureBoxSvern.Size = new System.Drawing.Size(51, 47);
             this.pictureBoxSvern.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -116,7 +157,7 @@ namespace musicPlay
             // pictureBox4Povtor
             // 
             this.pictureBox4Povtor.Image = global::musicPlay.Properties.Resources.PovtorIcon;
-            this.pictureBox4Povtor.Location = new System.Drawing.Point(378, 18);
+            this.pictureBox4Povtor.Location = new System.Drawing.Point(368, 36);
             this.pictureBox4Povtor.Name = "pictureBox4Povtor";
             this.pictureBox4Povtor.Size = new System.Drawing.Size(48, 47);
             this.pictureBox4Povtor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -127,7 +168,7 @@ namespace musicPlay
             // pictureBoxPeremesh
             // 
             this.pictureBoxPeremesh.Image = global::musicPlay.Properties.Resources.SmeshIcon;
-            this.pictureBoxPeremesh.Location = new System.Drawing.Point(321, 18);
+            this.pictureBoxPeremesh.Location = new System.Drawing.Point(311, 36);
             this.pictureBoxPeremesh.Name = "pictureBoxPeremesh";
             this.pictureBoxPeremesh.Size = new System.Drawing.Size(51, 47);
             this.pictureBoxPeremesh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -138,7 +179,7 @@ namespace musicPlay
             // pictureBox3
             // 
             this.pictureBox3.Image = global::musicPlay.Properties.Resources.StartIcon;
-            this.pictureBox3.Location = new System.Drawing.Point(84, 18);
+            this.pictureBox3.Location = new System.Drawing.Point(84, 36);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(51, 47);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -149,7 +190,7 @@ namespace musicPlay
             // pictureBoxVpered
             // 
             this.pictureBoxVpered.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxVpered.Image")));
-            this.pictureBoxVpered.Location = new System.Drawing.Point(141, 18);
+            this.pictureBoxVpered.Location = new System.Drawing.Point(141, 36);
             this.pictureBoxVpered.Name = "pictureBoxVpered";
             this.pictureBoxVpered.Size = new System.Drawing.Size(51, 47);
             this.pictureBoxVpered.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -160,7 +201,7 @@ namespace musicPlay
             // pictureBoxNazad
             // 
             this.pictureBoxNazad.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxNazad.Image")));
-            this.pictureBoxNazad.Location = new System.Drawing.Point(27, 18);
+            this.pictureBoxNazad.Location = new System.Drawing.Point(33, 36);
             this.pictureBoxNazad.Name = "pictureBoxNazad";
             this.pictureBoxNazad.Size = new System.Drawing.Size(51, 47);
             this.pictureBoxNazad.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -172,7 +213,7 @@ namespace musicPlay
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(317, 39);
+            this.label2.Location = new System.Drawing.Point(341, 57);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(136, 20);
@@ -189,9 +230,16 @@ namespace musicPlay
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(206, 423);
+            this.groupBox1.Size = new System.Drawing.Size(206, 444);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
+            // 
+            // panel2
+            // 
+            this.panel2.Location = new System.Drawing.Point(8, 154);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(193, 285);
+            this.panel2.TabIndex = 4;
             // 
             // buttonSozd
             // 
@@ -230,7 +278,7 @@ namespace musicPlay
             // pictureBoxSave
             // 
             this.pictureBoxSave.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxSave.Image")));
-            this.pictureBoxSave.Location = new System.Drawing.Point(468, 23);
+            this.pictureBoxSave.Location = new System.Drawing.Point(305, 11);
             this.pictureBoxSave.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxSave.Name = "pictureBoxSave";
             this.pictureBoxSave.Size = new System.Drawing.Size(55, 36);
@@ -251,19 +299,38 @@ namespace musicPlay
             this.pictureBoxClose.TabStop = false;
             this.pictureBoxClose.Click += new System.EventHandler(this.pictureBoxClose_Click);
             // 
-            // panel2
+            // pictureBoxClear
             // 
-            this.panel2.Location = new System.Drawing.Point(8, 154);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(193, 264);
-            this.panel2.TabIndex = 4;
+            this.pictureBoxClear.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxClear.Image")));
+            this.pictureBoxClear.Location = new System.Drawing.Point(394, 11);
+            this.pictureBoxClear.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBoxClear.Name = "pictureBoxClear";
+            this.pictureBoxClear.Size = new System.Drawing.Size(55, 36);
+            this.pictureBoxClear.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxClear.TabIndex = 11;
+            this.pictureBoxClear.TabStop = false;
+            this.pictureBoxClear.Click += new System.EventHandler(this.pictureBoxClear_Click);
+            // 
+            // pictureBoxDelete
+            // 
+            this.pictureBoxDelete.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxDelete.Image")));
+            this.pictureBoxDelete.Location = new System.Drawing.Point(474, 11);
+            this.pictureBoxDelete.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBoxDelete.Name = "pictureBoxDelete";
+            this.pictureBoxDelete.Size = new System.Drawing.Size(56, 36);
+            this.pictureBoxDelete.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxDelete.TabIndex = 12;
+            this.pictureBoxDelete.TabStop = false;
+            this.pictureBoxDelete.Click += new System.EventHandler(this.pictureBoxDelete_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(742, 434);
+            this.ClientSize = new System.Drawing.Size(742, 453);
+            this.Controls.Add(this.pictureBoxDelete);
+            this.Controls.Add(this.pictureBoxClear);
             this.Controls.Add(this.pictureBoxClose);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBoxSave);
@@ -277,6 +344,9 @@ namespace musicPlay
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.panel3TimeSong.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPolz)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSvern)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4Povtor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPeremesh)).EndInit();
@@ -288,6 +358,8 @@ namespace musicPlay
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClear)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDelete)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -312,6 +384,11 @@ namespace musicPlay
         public System.Windows.Forms.PictureBox pictureBoxClose;
         private System.Windows.Forms.Button buttonSozd;
         private System.Windows.Forms.Panel panel2;
+        public System.Windows.Forms.PictureBox pictureBoxClear;
+        public System.Windows.Forms.PictureBox pictureBoxDelete;
+        private System.Windows.Forms.Panel panel3TimeSong;
+        private System.Windows.Forms.PictureBox pictureBoxPolz;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 

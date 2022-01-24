@@ -18,16 +18,24 @@ namespace musicPlay
         public bool loop;
         public bool peremesh;
         public string newPath;
+        
 
         public Form2()
         {
             NewSong.EventHandler = new NewSong.Song(ChangeLabel);
+            PositionChangeClass.EventHandler = new PositionChangeClass.PositionChange(ChangePosition);
             InitializeComponent();
+        }
+
+        void ChangePosition(int x)
+        {
+            pictureBoxPolz.Location=new Point(x, pictureBoxPolz.Location.Y);
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             PauseClass.EventHandler();
+            
 
             if (Directory.Exists(newPath))
             {
@@ -55,7 +63,6 @@ namespace musicPlay
 
         private void pictureBoxSvern_Click(object sender, EventArgs e)
         {
-            
             //ShowClass.EventHandler();
             Form f = Application.OpenForms[0];
             f.Show();
@@ -123,6 +130,32 @@ namespace musicPlay
             {
                 pictureBox3.Image = Properties.Resources.pauseIcon;
             }
+        }
+
+        private void pictureBox2_MouseClick(object sender, MouseEventArgs e)
+        {
+            pictureBoxPolz.Location = new Point(e.Location.X, pictureBoxPolz.Location.Y);
+            PositionMouseClickClass.EventHandler(e.Location.X);
+        }
+
+
+        private void pictureBoxClose_Click(object sender, EventArgs e)
+        {
+            string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Плейлисты", "Новый плейлист");
+            try
+            {
+                if (Directory.Exists(newPath))
+                {
+                    Directory.Delete(newPath, true);
+                }
+            }
+            catch
+            {
+
+            }
+
+            Close();
+            Application.Exit();
         }
     }
 }
