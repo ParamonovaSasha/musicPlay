@@ -31,7 +31,7 @@ namespace musicPlay
         {
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxNazvanie = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -58,13 +58,13 @@ namespace musicPlay
             this.label1.TabIndex = 5;
             this.label1.Text = "Название:";
             // 
-            // textBox1
+            // textBoxNazvanie
             // 
-            this.textBox1.BackColor = System.Drawing.Color.PeachPuff;
-            this.textBox1.Location = new System.Drawing.Point(118, 70);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(199, 20);
-            this.textBox1.TabIndex = 6;
+            this.textBoxNazvanie.BackColor = System.Drawing.Color.PeachPuff;
+            this.textBoxNazvanie.Location = new System.Drawing.Point(118, 70);
+            this.textBoxNazvanie.Name = "textBoxNazvanie";
+            this.textBoxNazvanie.Size = new System.Drawing.Size(199, 20);
+            this.textBoxNazvanie.TabIndex = 6;
             // 
             // button1
             // 
@@ -75,6 +75,7 @@ namespace musicPlay
             this.button1.TabIndex = 7;
             this.button1.Text = "Отмена";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -85,6 +86,7 @@ namespace musicPlay
             this.button2.TabIndex = 8;
             this.button2.Text = "Сохранить";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Form3
             // 
@@ -93,7 +95,7 @@ namespace musicPlay
             this.ClientSize = new System.Drawing.Size(333, 191);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxNazvanie);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Name = "Form3";
@@ -107,7 +109,7 @@ namespace musicPlay
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxNazvanie;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
     }

@@ -45,6 +45,12 @@ namespace musicPlay
         public static Song EventHandler;
     }
 
+    public static class PlaylistClass
+    {
+        public delegate void Playlist(string playlistName);
+        public static Playlist EventHandler;
+    }
+
     static class Program
     {
 

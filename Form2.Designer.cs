@@ -162,7 +162,7 @@ namespace musicPlay
             this.Controls.Add(this.NazvanLabel);
             this.Controls.Add(this.label2);
             this.Name = "Form2";
-            this.Text = "Form2";
+            this.Text = "MP3Player";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSvern)).EndInit();

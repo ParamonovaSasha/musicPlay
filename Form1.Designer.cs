@@ -31,7 +31,7 @@ namespace musicPlay
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.pictureBoxSvern = new System.Windows.Forms.PictureBox();
             this.pictureBox4Povtor = new System.Windows.Forms.PictureBox();
@@ -41,10 +41,12 @@ namespace musicPlay
             this.pictureBoxNazad = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonSozd = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBoxSave = new System.Windows.Forms.PictureBox();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSvern)).BeginInit();
@@ -64,7 +66,7 @@ namespace musicPlay
             this.panel1.AllowDrop = true;
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label31);
             this.panel1.Location = new System.Drawing.Point(222, 80);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(495, 263);
@@ -72,16 +74,16 @@ namespace musicPlay
             this.panel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.panel1_DragDrop);
             this.panel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.panel1_DragEnter);
             // 
-            // label3
+            // label31
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(79, 104);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(335, 20);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Перетащите сюда музыку чтобы добавить";
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(79, 104);
+            this.label31.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(335, 20);
+            this.label31.TabIndex = 2;
+            this.label31.Text = "Перетащите сюда музыку чтобы добавить";
             // 
             // groupBox3
             // 
@@ -173,12 +175,14 @@ namespace musicPlay
             this.label2.Location = new System.Drawing.Point(317, 39);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(150, 20);
+            this.label2.Size = new System.Drawing.Size(136, 20);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Текущий плейлист";
+            this.label2.Text = "Новый плейлист";
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.panel2);
+            this.groupBox1.Controls.Add(this.buttonSozd);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Location = new System.Drawing.Point(11, 6);
@@ -189,11 +193,23 @@ namespace musicPlay
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             // 
+            // buttonSozd
+            // 
+            this.buttonSozd.BackColor = System.Drawing.SystemColors.Info;
+            this.buttonSozd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSozd.Location = new System.Drawing.Point(-1, 96);
+            this.buttonSozd.Name = "buttonSozd";
+            this.buttonSozd.Size = new System.Drawing.Size(206, 32);
+            this.buttonSozd.TabIndex = 3;
+            this.buttonSozd.Text = "Создать ноый плейлист +";
+            this.buttonSozd.UseVisualStyleBackColor = false;
+            this.buttonSozd.Click += new System.EventHandler(this.buttonSozd_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(4, 114);
+            this.label1.Location = new System.Drawing.Point(4, 131);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(202, 20);
@@ -206,7 +222,7 @@ namespace musicPlay
             this.pictureBox1.Location = new System.Drawing.Point(0, 16);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(202, 81);
+            this.pictureBox1.Size = new System.Drawing.Size(193, 66);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -214,13 +230,14 @@ namespace musicPlay
             // pictureBoxSave
             // 
             this.pictureBoxSave.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxSave.Image")));
-            this.pictureBoxSave.Location = new System.Drawing.Point(482, 39);
+            this.pictureBoxSave.Location = new System.Drawing.Point(468, 23);
             this.pictureBoxSave.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxSave.Name = "pictureBoxSave";
             this.pictureBoxSave.Size = new System.Drawing.Size(55, 36);
             this.pictureBoxSave.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxSave.TabIndex = 8;
             this.pictureBoxSave.TabStop = false;
+            this.pictureBoxSave.Click += new System.EventHandler(this.pictureBoxSave_Click);
             // 
             // pictureBoxClose
             // 
@@ -233,6 +250,13 @@ namespace musicPlay
             this.pictureBoxClose.TabIndex = 10;
             this.pictureBoxClose.TabStop = false;
             this.pictureBoxClose.Click += new System.EventHandler(this.pictureBoxClose_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Location = new System.Drawing.Point(8, 154);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(193, 264);
+            this.panel2.TabIndex = 4;
             // 
             // Form1
             // 
@@ -272,7 +296,7 @@ namespace musicPlay
         #endregion
 
         public System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.Label label31;
         public System.Windows.Forms.GroupBox groupBox3;
         public System.Windows.Forms.PictureBox pictureBoxSvern;
         public System.Windows.Forms.PictureBox pictureBox4Povtor;
@@ -286,6 +310,8 @@ namespace musicPlay
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.PictureBox pictureBoxClose;
+        private System.Windows.Forms.Button buttonSozd;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 

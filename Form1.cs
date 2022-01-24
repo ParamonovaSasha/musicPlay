@@ -43,12 +43,20 @@ namespace musicPlay
         //Лист для песен в смешанном порядке
         List<string> filesmesh = new List<string>();
 
+        string PathPlay = Path.Combine(Directory.GetCurrentDirectory(), "Плейлисты");
+
         //Путь до папки с песнями
-        string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
+        string newPath = Path.Combine((Path.Combine(Directory.GetCurrentDirectory(), "Плейлисты")), "Новый плейлист");
+        
+
+        string newPlaylistPath = Path.Combine((Path.Combine(Directory.GetCurrentDirectory(), "Плейлисты")), "Новый плейлист");
+
+        int labelHeight = 0;
 
         //Лист для названий песен
         List<string> names = new List<string>();
 
+        Label label3 = new Label();
 
 
         //Метод для выделения панели с играемой песней
@@ -210,7 +218,7 @@ namespace musicPlay
         //Метод для запуска плайера в другом потоке
         public void  musicPlay()
         {
-            string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
+            //string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
             
             wplayer.PlayStateChange += new _WMPOCXEvents_PlayStateChangeEventHandler(WMP_PlayStateChange);
             wplayer.PlaylistChange += new _WMPOCXEvents_PlaylistChangeEventHandler(WMP_SongChange);
@@ -239,7 +247,7 @@ namespace musicPlay
                 if (wplayer.URL != null)
                 {
                     //MessageBox.Show(Application.OpenForms.Count.ToString());
-                    if (Application.OpenForms.Count == 2)
+                    if ((Application.OpenForms.Count==2) &&((Application.OpenForms[1].Name=="Form2")))
                     {
                         NewSong.EventHandler(names[song]);
                     }
@@ -256,17 +264,21 @@ namespace musicPlay
         {
             InitializeComponent();
 
+            //Делигшаты, выполнение которых запускается с других форм
             PauseClass.EventHandler = new PauseClass.Pause(pictureBox3_Click);
             SmeshClass.EventHandler = new SmeshClass.Smesh(pictureBoxPeremesh_Click);
             VperedClass.EventHandler = new VperedClass.Vpered(pictureBoxVpered_Click);
             NazadClass.EventHandler = new NazadClass.Nazad(pictureBoxNazad_Click);
             LoopClass.EventHandler = new LoopClass.Loop(pictureBox4Povtor_Click);
+            PlaylistClass.EventHandler = new PlaylistClass.Playlist(Playlist_create);
 
             //ShowClass.EventHandler = new ShowClass.Show(Show);
 
             pause = true;
             loop = false;
             smesh = false;
+
+            label3 = label31;
 
             //Подсказки при наведении на кнопки
 
@@ -284,7 +296,7 @@ namespace musicPlay
             t4.SetToolTip(pictureBoxSvern, "Свернуть");
 
             ToolTip t5 = new ToolTip();
-            t5.SetToolTip(pictureBoxSave, "Сохранить текущий плейлист");
+            t5.SetToolTip(pictureBoxSave, "Сохранить как новый плейлист");
 
             ToolTip t7 = new ToolTip();
             t7.SetToolTip(pictureBoxVpered, "Следующая песня");
@@ -353,7 +365,7 @@ namespace musicPlay
                         
                         path = Environment.CurrentDirectory;
 
-                        string create = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
+                        
 
                         string pathfile = new System.IO.FileInfo(f).FullName;
 
@@ -366,8 +378,8 @@ namespace musicPlay
                         //Если это первая песня, то создается папка
                         if (names.Count == 1)
                         {
-                            Directory.CreateDirectory(create);
-                            label3.Text="";
+                            Directory.CreateDirectory(newPath);
+                            label31.Text="";
                         }
 
                         //В папку копируется файл
@@ -438,27 +450,96 @@ namespace musicPlay
                     song--;
                 }
 
+
                 PrintSong();
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
-            string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
-            
+
+            //Удаление папки с новым плейлистом
             try
             {
-                if (Directory.Exists(newPath))
+                if (Directory.Exists(newPlaylistPath))
                 {
-                    Directory.Delete(newPath, true);
+                    Directory.Delete(newPlaylistPath, true);
                 }
             }
             catch
             {
 
             }
+
+            List<string> playlists=new List<string>();
+
+            //Считывание всех существующий плейлистов
+            DirectoryInfo[] dir = new DirectoryInfo(PathPlay).GetDirectories();
+
+            
+            foreach (DirectoryInfo d in dir)
+            {
+                //MessageBox.Show("Я здесь");
+                playlists.Add(d.Name);
+            }
+
+            //Добавление названий плейлистов на панели
+            foreach (string elem in playlists)
+            {
+                
+                Label l = new Label();
+                l.Top = labelHeight + 5;
+                Font font1 = new Font("Times New Roman", 10.0f,
+                FontStyle.Regular);
+                l.ForeColor = Color.Black;
+               l.Click += PlaylistClick;
+                l.Text = elem;
+                labelHeight = labelHeight+l.Height;
+                panel2.Controls.Add(l);
+
+            }
+
+
         }
+
+        //Запуск плейлиста при нажатии на него
+        private void PlaylistClick(object sender, EventArgs e)
+        {
+            names.Clear();
+            foreach (Label lay in panel2.Controls.OfType<Label>())
+            {
+                lay.ForeColor = Color.Black;
+
+            }
+
+            (sender as Label).ForeColor = Color.Aqua;
+            newPath = Path.Combine(PathPlay, (sender as Label).Text);
+            string[] files = Directory.GetFiles(newPath);
+
+            wplayer.controls.stop();
+            wplayer.URL = null;
+
+            DirectoryInfo dir = new DirectoryInfo(newPath);
+
+            foreach (FileInfo f in dir.GetFiles())
+            {
+                names.Add(f.Name);
+            }
+
+            if (!(Directory.Exists(newPlaylistPath)))
+            {
+                Thread myth = new Thread(musicPlay);
+                song = 0;
+                myth.Name = "Поток1";
+                myth.Start();
+            }
+
+            label2.Text = (sender as Label).Text;
+
+            PrintSong();
+        }
+
+
 
         //Пауза
         public void pictureBox3_Click()
@@ -640,7 +721,7 @@ namespace musicPlay
 
         private void pictureBoxClose_Click(object sender, EventArgs e)
         {
-            string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Текущий плейлист");
+            string newPath = Path.Combine(Directory.GetCurrentDirectory(), "Плейлисты", "Новый плейлист");
             try
             {
                 if (Directory.Exists(newPath))
@@ -655,6 +736,89 @@ namespace musicPlay
 
             Close();
             Application.Exit();
+        }
+
+        private void pictureBoxSave_Click(object sender, EventArgs e)
+        {
+            Form3 f3 = new Form3();
+            f3.Show();
+        }
+
+        private void buttonSozd_Click(object sender, EventArgs e)
+        {
+            label2.Text = "Новый плейлист";
+            panel1.Controls.Clear();
+            panel1.Controls.Add(label3);
+
+            foreach (Label lay in panel2.Controls.OfType<Label>())
+            {
+                lay.ForeColor = Color.Black;
+
+            }
+
+            wplayer.controls.stop();
+            wplayer.URL = null;
+
+            names.Clear();
+            newPath = newPlaylistPath;
+
+            try
+            {
+                if (Directory.Exists(newPlaylistPath))
+                {
+                    Directory.Delete(newPlaylistPath, true);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        //Создание плейлиста
+        private void Playlist_create(string playlistName)
+        {
+            
+            Label l1 = new Label();
+            l1.Text = playlistName;
+            Font font1 = new Font("Times New Roman", 10.0f,
+                FontStyle.Regular);
+            l1.ForeColor = Color.DarkGreen;
+            l1.Font = font1;
+            l1.Top = 5 + labelHeight;
+            labelHeight = l1.Height;
+
+            newPath=  Path.Combine(Directory.GetCurrentDirectory(), "Плейлисты", playlistName);
+
+            try
+            {
+                panel2.Controls.Add(l1);
+                wplayer.controls.stop();
+                wplayer.URL = null;
+                
+                Directory.CreateDirectory(newPath);
+
+                string[] myfiles = Directory.GetFiles(newPlaylistPath);
+
+                foreach (string item in myfiles)
+                {
+                    File.Copy(item, Path.Combine(newPath, Path.GetFileName(item)));
+                }
+
+                string[] files = Directory.GetFiles(newPath);
+                Directory.Delete(newPlaylistPath, true);
+                song = 0;
+                wplayer.URL = files[song];
+
+                
+                label2.Text = playlistName;
+
+            }
+            catch
+            {
+                MessageBox.Show("При создании плейлиста произошла ошибка");
+            }
+
         }
     }
 }
